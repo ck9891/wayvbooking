@@ -4,43 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=wayv_booking", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $data = [
-    'firstname' => $firstname,
-    'lastname' => $lastname,
-    'year' => $dob_year,
-    'month' => $dob_month,
-        'day' => $dob_day,
-        'age' => $age,
-        'contact_email' => $contact_email,
-        'contact_phone' => $contact_phone,
-        'email' => $email,
-        'phone' => $phone,
-        'address' => $address,
-        'city' => $city,
-        'pc_zip' => $pc_zip,
-        'province' => $provincee,
-        'nationality' => $nationality,
-        'gender' => $gender,
-        
-    ];
-    $sql = "INSERT INTO wayv_traveller (`traveller_fname`, `traveller_lname`, `traveller_dob_year`, `traveller_dob_month`, `traveller_dob_day`, `traveller_age`, `traveller_email`, `traveller_phone`, `traveller_address`, `traveller_city`, `traveller_pc_zip`, `traveller_province`, `traveller_nationality`, `traveller_gender`) VALUES (:firstname, :lastname, :year, :month, :day, :age, :contact_email, :contact_phone, :address, :city, :pc_zip, :province, :nationality, :gender)";
-    // use exec() because no results are returned
-    $conn->exec($sql);
-    echo "Database created successfully<br>";
-    }
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-
-$conn = null;
 ?>
-
 
 <!DOCTYPE html>
 
@@ -56,18 +20,12 @@ $conn = null;
     <script src="jquery.steps.min.js"></script>
     <link rel="stylesheet" href="booking-styles.css">
     <link rel="stylesheet" href="https://use.typekit.net/rur4dbk.css">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({
-      numberOfMonths: 2,
-      showButtonPanel: true
-    });
-  } );
-  </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 </head>
 
 <body>
@@ -96,8 +54,9 @@ $conn = null;
                 <h2 class="section-title">Book Your Own Yacht</h2>
                 <img src="img/blue-wayv.png" alt="" class="wayv-icon" />
                 <p class="sub-title">Select Your Dates</p>
-                <h2>Insert Calendar here</h2>
                 <div id="datepicker"></div>
+
+                <p>Date: <input type="text" id="datepicker2" disabled></p>
                 <input type="checkbox" name="tagalong" value="tagalong">
                 <p>Tag a long with us! <span class="orange-text">Show WAYV Travel Dates(?)</span></p>
             </section>
@@ -132,7 +91,7 @@ $conn = null;
                 <img src="img/blue-wayv.png" alt="" class="wayv-icon" />
                 <p class="sub-title blue-text">Use the Toggle to view alternative options.(?)</p>
                 <div class="wrapper-900">
-                    <div class="slide-container">
+                    <div class="slide-container mySlides" style="width:100%;">
                         <div class="row slider-row-padding">
                             <div class="col-6">
                                 <div class="yacht-featured">
@@ -162,11 +121,78 @@ $conn = null;
                                 </div>
                                 <div class="yacht-more-info">
                                     <a href="#" class="wayv-btn orange-bg blue-hover">More Info</a>
-                                    <a href="#" class="wayv-btn orange-bg blue-hover">Select this yacht</a>
+                                    <div class="button-wrap">
+                                        <input class="hidden radio-label wayv-btn" type="radio" name="select_yacht" id="yes-button" value="yacht1" />
+                                        <label class="button-label wayv-btn orange-bg blue-hover" for="yes-button">
+      <h1>Select this Yacht</h1>
+    </label>
+                                        <!--
+    <input class="hidden radio-label" type="radio" name="select_yacht" id="no-button"  value="yacht1"/>
+    <label class="button-label wayv-btn orange-bg blue-hover" for="no-button">
+      <h1>No</h1>
+    </label>
+    <input class="hidden radio-label" type="radio" name="select_yacht" id="maybe-button"/>
+    <label class="button-label wayv-btn orange-bg blue-hover" for="maybe-button">
+      <h1>Maybe</h1>
+    </label>
+-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="slide-container mySlides" style="width:100%;">
+                        <div class="row slider-row-padding">
+                            <div class="col-6">
+                                <div class="yacht-featured">
+                                    <img src="img/feature-boat.png" alt="featured yacht image" />
+                                </div>
+                                <div class="row other-images">
+                                    <div class="col-4"><img src="img/boat-image.png" alt="boat image" /></div>
+                                    <div class="col-4"><img src="img/boat-image.png" alt="boat image" /></div>
+                                    <div class="col-4"><img src="img/boat-image.png" alt="boat image" /></div>
+                                    <div class="col-4"><img src="img/boat-image.png" alt="boat image" /></div>
+                                </div>
+                            </div>
+                            <div class="col-6 yacht-details">
+                                <h3 class="yacht-title">Yacht Option #2</h3>
+                                <div class="indent">
+                                    <p class="yacht-text starting-price orange-text">
+                                        Starting at $XXXX
+                                    </p>
+                                    <p class="blue-text yacht-text">Description:</p>
+                                    <p class="yacht-description-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer id fermentum magna, at tincidunt enim. Nullam condimentum semper ex quis egestas.
+                                    </p>
+                                    <p class="blue-text yacht-text">Sleeps:</p>
+                                    <p class="yacht-description-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </p>
+                                </div>
+                                <div class="yacht-more-info">
+                                    <a href="#" class="wayv-btn orange-bg blue-hover">More Info</a>
+                                    <div class="button-wrap">
+                                        <input class="hidden radio-label wayv-btn" type="radio" name="select_yacht" id="yes-button" value="yacht2" />
+                                        <label class="button-label wayv-btn orange-bg blue-hover" for="yes-button">
+      <h1>Select this Yacht</h1>
+    </label>
+                                        <!--
+    <input class="hidden radio-label" type="radio" name="select_yacht" id="no-button"  value="yacht1"/>
+    <label class="button-label wayv-btn orange-bg blue-hover" for="no-button">
+      <h1>No</h1>
+    </label>
+    <input class="hidden radio-label" type="radio" name="select_yacht" id="maybe-button"/>
+    <label class="button-label wayv-btn orange-bg blue-hover" for="maybe-button">
+      <h1>Maybe</h1>
+    </label>
+-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                    <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
                 </div>
             </section>
             <section id="personalizeExp" class="page-section">
@@ -231,7 +257,7 @@ $conn = null;
                     </div>
                 </div>
             </section>
-            <!--<input type="button" name="next" class="wayv-btn next blue-bg orange-hover white-text" value="Proceed to Traveller Info">-->
+         
             <a href="#" class="next-form wayv-btn next blue-bg orange-hover white-text">Proceed to Traveller Info</a>
 
         </fieldset>
@@ -962,7 +988,7 @@ $conn = null;
                     </p>
                 </div>
             </section>
-            <a href="#" class="next-tab wayv-btn orange-bg blue-hover white-text">
+            <a href="#" class="next wayv-btn orange-bg blue-hover white-text">
 		Proceed to Confirmation
 	</a>
         </fieldset>
@@ -1092,7 +1118,7 @@ $conn = null;
                     </table>
                 </div>
             </section>
-            <a href="#" class="wayv-btn blue-bg orange-hover next-form">Proceed to Breakdown</a>
+            <a href="#" class="wayv-btn blue-bg orange-hover next">Proceed to Breakdown</a>
         </fieldset>
         <fieldset class="tab">
             <section id="costBreakdown" class="page-section">
@@ -1220,9 +1246,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nationality = test_input($_POST["nationality"]);
     $gender = test_input($_POST["gender"]);
     
-    
 
 }
+   
 
 function test_input($data) {
   $data = trim($data);
@@ -1257,15 +1283,154 @@ echo $city;
 echo $pc-zip;
 echo $province;
 echo $nationality;
-    ?>
 
+    if(isset($_POST['submit'])){
+        
+    try {
+    $conn = new PDO("mysql:host=$servername;dbname=wayv_booking", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+    $sql = "INSERT INTO wayv_traveller (traveller_fname, traveller_lname, traveller_dob_year, traveller_dob_month, traveller_dob_day, traveller_age, traveller_email, traveller_phone, traveller_address, traveller_city, traveller_pc_zip, traveller_province, traveller_nationality, traveller_gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $the_array = array($firstname, $lastname, $dob_year, $dob_month, $dob_day, $age, $email, $phone, $address, $city, $pc_zip, $province, $nationality, $gender);
+    // use exec() because no results are returned
+    $conn = $conn->prepare($sql);
+        echo "New record created successfully";
+    $conn->execute($the_array);
+    
+    }
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+        echo "form stuff";
+    }
+$conn = null;   
+    
+    ?>
+        <script>
+      //jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+	
+	
+	//show the next fieldset
+	next_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale current_fs down to 80%
+			scale = 1 - (1 - now) * 0.2;
+			//2. bring next_fs from the right(50%)
+			left = (now * 50)+"%";
+			//3. increase opacity of next_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({
+        'transform': 'scale('+scale+')',
+        'position': 'absolute'
+      });
+			next_fs.css({'left': left, 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".previous").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
+	
+	
+	
+	//show the previous fieldset
+	previous_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale previous_fs from 80% to 100%
+			scale = 0.8 + (1 - now) * 0.2;
+			//2. take current_fs to the right(50%) - from 0%
+			left = ((1-now) * 50)+"%";
+			//3. increase opacity of previous_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({'left': left});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".submit").click(function(){
+	return false;
+})
+        </script>
+        <script>
+        $(function() {
+            $('#datepicker').datepicker({
+                numberOfMonths: 2,
+                onSelect: function(dateText) {
+                    $('#datepicker2').datepicker("setDate", $(this).datepicker("getDate"));
+                }
+            });
+        });
+
+        $(function() {
+            $("#datepicker2").datepicker();
+        });
+    </script>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = x.length
+            };
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>
 </body>
 <script>
     $('.tab .next-form').click(function() {
         $(this).removeClass('active');
         $(this).next().addClass('active');
     });
-
 </script>
 
 </html>
